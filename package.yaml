@@ -37,6 +37,10 @@ ghc-options:
 
 library:
   source-dirs: src
+  default-extensions:
+  - OverloadedRecordDot
+  - DuplicateRecordFields
+  - NoFieldSelectors
 
 executables:
   endlessSkyShips-exe:
@@ -48,6 +52,10 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - endlessSkyShips
+    default-extensions:
+    - OverloadedRecordDot
+    - DuplicateRecordFields
+    - NoFieldSelectors
 
 tests:
   endlessSkyShips-test:
@@ -59,3 +67,7 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - endlessSkyShips
+    default-extensions:
+    - OverloadedRecordDot
+    - DuplicateRecordFields
+    - NoFieldSelectors
