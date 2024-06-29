@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      Debug
       Parsing
       Processing
       Types
@@ -39,10 +40,15 @@ library
       DuplicateRecordFields
       NoFieldSelectors
       NamedFieldPuns
+      DeriveGeneric
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , aeson-pretty
+    , base >=4.7 && <5
+    , bytestring
     , containers
+    , directory
     , parsec
   default-language: Haskell2010
 
@@ -59,10 +65,15 @@ executable endlessSkyShips-exe
       DuplicateRecordFields
       NoFieldSelectors
       NamedFieldPuns
+      DeriveGeneric
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , aeson-pretty
+    , base >=4.7 && <5
+    , bytestring
     , containers
+    , directory
     , endlessSkyShips
     , parsec
   default-language: Haskell2010
@@ -81,10 +92,15 @@ test-suite endlessSkyShips-test
       DuplicateRecordFields
       NoFieldSelectors
       NamedFieldPuns
+      DeriveGeneric
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , aeson-pretty
+    , base >=4.7 && <5
+    , bytestring
     , containers
+    , directory
     , endlessSkyShips
     , parsec
   default-language: Haskell2010

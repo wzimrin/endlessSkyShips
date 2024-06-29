@@ -5,18 +5,22 @@ module Types
     , Weapon(..)
     , Ship(..)
     , ESData(..)
+    , emptyData
     ) where
+
+import Data.Aeson
+import GHC.Generics
 
 data Engine = Engine { power :: Double
                      , engineEnergy :: Double
                      , engineHeat :: Double
                      }
-  deriving Show
+  deriving (Show, Generic)
 
-data Weapon = Weapon { reload :: Int
+data Weapon = Weapon { reload :: Double
                      , firingEnergy :: Double
                      , firingHeat :: Double }
-  deriving Show
+  deriving (Show, Generic)
 
 data Attributes = Attributes { name :: String
                              , category :: String
@@ -31,7 +35,7 @@ data Attributes = Attributes { name :: String
                              , ramscoop :: Double
                              , bunks :: Int
                              , requiredCrew :: Int
-                             , cooling :: Int
+                             , cooling :: Double
                              , coolingInefficiency :: Int
                              , energyCapacity :: Int
                              , energyGeneration :: Double
@@ -41,8 +45,9 @@ data Attributes = Attributes { name :: String
                              , shieldHeat :: Double
                              , hullEnergy :: Double
                              , hullHeat :: Double
+                             , licenses :: [String]
                              }
-  deriving Show
+  deriving (Show, Generic)
 
 data Outfit = Outfit { attributes :: Attributes
                      , thrustData :: Maybe Engine
@@ -50,15 +55,36 @@ data Outfit = Outfit { attributes :: Attributes
                      , reverseData :: Maybe Engine
                      , weaponData :: Maybe Weapon
                      }
-  deriving Show
+  deriving (Show, Generic)
 
 data Ship = Ship { attributes :: Attributes
                  , drag :: Double
                  , heatDissipation :: Double
                  }
-  deriving Show
+  deriving (Show, Generic)
 
 data ESData = ESData { ships :: [Ship]
                      , outfits :: [Outfit]
                      }
-  deriving Show
+  deriving (Show, Generic)
+
+instance ToJSON Engine where
+    toEncoding = genericToEncoding defaultOptions
+
+instance ToJSON Weapon where
+    toEncoding = genericToEncoding defaultOptions
+
+instance ToJSON Attributes where
+    toEncoding = genericToEncoding defaultOptions
+
+instance ToJSON Outfit where
+    toEncoding = genericToEncoding defaultOptions
+
+instance ToJSON Ship where
+    toEncoding = genericToEncoding defaultOptions
+
+instance ToJSON ESData where
+    toEncoding = genericToEncoding defaultOptions
+
+emptyData :: ESData
+emptyData = ESData [] []

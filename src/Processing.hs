@@ -2,10 +2,13 @@ module Processing ( processShip
                   , processOutfit
                   , processFile
                   , joinFiles
+                  , mergeFiles
                   ) where
 
 import qualified Data.Map as Map
 import Data.Maybe
+
+import qualified Debug
 import Types
 import Parsing
 
@@ -26,7 +29,7 @@ getStringValue :: String -> ESBlocks -> String
 getStringValue = getValue ""
 
 getReadValue :: Read t => String -> ESBlocks -> t
-getReadValue key blocks = read value
+getReadValue key blocks = read $ Debug.trace ("reading " ++ key ++ " " ++ value) value
   where
     value = case getValue "0" key blocks of
       ('.':rest) -> "0." ++ rest
@@ -86,6 +89,7 @@ processAttributes name culture children = Attributes
   , shieldHeat = getReadValue "shield heat" children
   , hullEnergy = getReadValue "hull energy" children
   , hullHeat = getReadValue "hull heat" children
+  , licenses = Map.keys $ getChildren "licenses" children
   }
 
 processOutfit :: String -> ESBlock -> Outfit
@@ -119,3 +123,6 @@ joinFiles :: ESData -> ESData -> ESData
 joinFiles esdata esdata' = ESData { ships = esdata.ships ++ esdata'.ships
                                   , outfits = esdata.outfits ++ esdata'.outfits
                                   }
+
+mergeFiles :: [ESData] -> ESData
+mergeFiles = foldr joinFiles emptyData

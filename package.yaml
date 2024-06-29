@@ -23,6 +23,10 @@ dependencies:
 - base >= 4.7 && < 5
 - parsec
 - containers
+- aeson
+- aeson-pretty
+- directory
+- bytestring
 
 ghc-options:
 - -Wall
@@ -42,6 +46,7 @@ library:
   - DuplicateRecordFields
   - NoFieldSelectors
   - NamedFieldPuns
+  - DeriveGeneric
 
 executables:
   endlessSkyShips-exe:
@@ -58,6 +63,7 @@ executables:
     - DuplicateRecordFields
     - NoFieldSelectors
     - NamedFieldPuns
+    - DeriveGeneric
 
 tests:
   endlessSkyShips-test:
@@ -74,3 +80,4 @@ tests:
     - DuplicateRecordFields
     - NoFieldSelectors
     - NamedFieldPuns
+    - DeriveGeneric
