@@ -4,6 +4,7 @@ module Types
     , Engine(..)
     , Weapon(..)
     , Ship(..)
+    , ESData(..)
     ) where
 
 data Engine = Engine { power :: Double
@@ -55,4 +56,9 @@ data Ship = Ship { attributes :: Attributes
                  , drag :: Double
                  , heatDissipation :: Double
                  }
+  deriving Show
+
+data ESData = ESData { ships :: [Ship]
+                     , outfits :: [Outfit]
+                     }
   deriving Show

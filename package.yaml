@@ -41,6 +41,7 @@ library:
   - OverloadedRecordDot
   - DuplicateRecordFields
   - NoFieldSelectors
+  - NamedFieldPuns
 
 executables:
   endlessSkyShips-exe:
@@ -56,6 +57,7 @@ executables:
     - OverloadedRecordDot
     - DuplicateRecordFields
     - NoFieldSelectors
+    - NamedFieldPuns
 
 tests:
   endlessSkyShips-test:
@@ -71,3 +73,4 @@ tests:
     - OverloadedRecordDot
     - DuplicateRecordFields
     - NoFieldSelectors
+    - NamedFieldPuns

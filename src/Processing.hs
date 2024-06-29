@@ -63,8 +63,8 @@ getWeapon children =
 
 processAttributes :: String -> String -> ESBlocks -> Attributes
 processAttributes name culture children = Attributes
-  { name = name
-  , culture = culture
+  { name
+  , culture
   , category = getStringValue "category" children
   , cost = getReadValue "cost" children
   , mass = getReadValue "mass" children
@@ -109,11 +109,13 @@ processShip culture (ESBlock [name] children) = Just $ Ship
     shipAttributes = getChildren "attributes" children
 processShip _ (ESBlock _ _) = Nothing
 
-processFile :: String -> ESBlocks -> ([Ship], [Outfit])
-processFile culture blocks = (ships, outfits)
+processFile :: String -> ESBlocks -> ESData
+processFile culture blocks = ESData {ships, outfits}
   where
     ships = mapMaybe (processShip culture) $ Map.findWithDefault [] "ship" blocks
     outfits = map (processOutfit culture) $ Map.findWithDefault [] "outfit" blocks
 
-joinFiles :: ([Ship], [Outfit]) -> ([Ship], [Outfit]) -> ([Ship], [Outfit])
-joinFiles (ships, outfits) (ships', outfits') = (ships ++ ships', outfits ++ outfits')
+joinFiles :: ESData -> ESData -> ESData
+joinFiles esdata esdata' = ESData { ships = esdata.ships ++ esdata'.ships
+                                  , outfits = esdata.outfits ++ esdata'.outfits
+                                  }

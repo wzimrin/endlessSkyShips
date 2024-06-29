@@ -1,6 +1,5 @@
 module Main (main) where
 
-import Text.Parsec.String
 import Parsing
 import Processing;
 import Types
@@ -17,12 +16,12 @@ enginePath = "/Applications/Endless Sky.app/Contents/Resources/data/human/engine
 shipPath :: String
 shipPath = "/Applications/Endless Sky.app/Contents/Resources/data/human/ships.txt"
 
-parseAndProcess :: String -> String -> IO ([Ship], [Outfit])
+parseAndProcess :: String -> String -> IO ESData
 parseAndProcess culture path = processFile culture <$> parseFile path
 
 showFile :: String -> String -> IO ()
 showFile culture path = do
-  (ships, outfits) <- parseAndProcess culture path
+  ESData { ships, outfits } <- parseAndProcess culture path
   putStrLn $ "ships for: " ++ path
   mapM_ print $ take 5 ships
   putStrLn $ "outfits for: " ++ path
